@@ -563,13 +563,18 @@ class PdfViewerController extends TransformationController {
   ///
   /// If the page does not exist in the layout, it returns null.
   /// If the controller is not ready([isReady]), the method throws some exception.
-  Matrix4? calculatePageFitMatrix({required int pageNumber, double? padding}) =>
+  Matrix4? calculatePageFitMatrix({
+    required int pageNumber,
+    double? padding,
+    double? zoomRatio,
+  }) =>
       calculatePageMatrix(
           pageNumber: pageNumber,
           padding: padding,
           x: 0,
           y: 0,
-          anchor: PdfViewerAnchor.topLeft);
+          anchor: PdfViewerAnchor.topLeft,
+          zoomRatio: zoomRatio);
 
   /// Calculate the matrix that corresponding to the page of specified offset ([x], [y]) and specified [zoomRatio].
   ///
@@ -635,10 +640,14 @@ class PdfViewerController extends TransformationController {
     required int pageNumber,
     double? padding,
     Duration duration = const Duration(milliseconds: 500),
+    double? zoomRatio,
   }) =>
       goTo(
-        destination:
-            calculatePageFitMatrix(pageNumber: pageNumber, padding: padding),
+        destination: calculatePageFitMatrix(
+            pageNumber: pageNumber,
+            padding: padding,
+            zoomRatio: zoomRatio ?? this.zoomRatio,
+        ),
         duration: duration,
       );
 
