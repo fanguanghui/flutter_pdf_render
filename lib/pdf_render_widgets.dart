@@ -646,7 +646,7 @@ class PdfViewerController extends TransformationController {
         destination: calculatePageFitMatrix(
             pageNumber: pageNumber,
             padding: padding,
-            zoomRatio: zoomRatio ?? this.zoomRatio,
+            zoomRatio: zoomRatio,
         ),
         duration: duration,
       );
